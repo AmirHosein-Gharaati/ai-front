@@ -6,7 +6,7 @@ import DataSetter from "../components/DataSetter";
 
 function Home() {
   const [formData, setFormData] = useState({});
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState<string | null>("");
 
   const fieldsNames: string[] = [
     "pregnancies",
@@ -25,6 +25,7 @@ function Home() {
   };
 
   const handleSubmit = async (event: any) => {
+    setResult(null);
     event.preventDefault();
 
     const res = await axios.post("http://localhost:8000/predict", formData);
