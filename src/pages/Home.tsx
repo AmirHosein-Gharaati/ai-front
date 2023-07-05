@@ -2,6 +2,7 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import axios from "axios";
+import DataSetter from "../components/DataSetter";
 
 function Home() {
   const [formData, setFormData] = useState({});
@@ -34,14 +35,14 @@ function Home() {
   return (
     <>
       <Typography
-        component="h1"
-        variant="h5"
+        variant="h4"
         style={{
-          margin: "20px 0px",
+          marginBottom: "20px",
         }}
       >
         AI Diabetics Predction
       </Typography>
+      <DataSetter />
       <Box component="form" noValidate onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           {fieldsNames.map((name) => (
