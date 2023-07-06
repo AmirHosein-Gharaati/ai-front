@@ -1,6 +1,4 @@
-# Project Name
-
-AI Course frontend project
+# AI Course frontend project
 
 ## Table of Contents
 
