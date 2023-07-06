@@ -14,7 +14,7 @@ function Theme({ children }: ThemeProps) {
         <Container component="main" maxWidth="md">
           <Box
             sx={{
-              marginTop: 20,
+              marginTop: "40px",
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',

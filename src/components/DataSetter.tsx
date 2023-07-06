@@ -6,20 +6,35 @@ import FormControl from "@mui/material/FormControl";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+interface LearnResponse {
+  accuracy: number;
+  precision: number;
+  recall: number;
+  f1: number;
+}
+
+const defaultLearnResult: LearnResponse = {
+  accuracy: 0,
+  precision: 0,
+  recall: 0,
+  f1: 0,
+};
+
 function DataSetter() {
   const [value, setValue] = useState(1);
-  const [accuracy, setAccuracy] = useState<number | null>(null);
+  const [accuracy, setAccuracy] = useState<LearnResponse>(defaultLearnResult);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number((event.target as HTMLInputElement).value));
+    const inputValue: number = parseInt(event.target.value);
+    setValue(inputValue);
   };
 
   useEffect(() => {
-    setAccuracy(null);
+    setAccuracy(defaultLearnResult);
     axios
       .post(`http://localhost:8000/dataset/${value}`)
       .then((res) => {
-        setAccuracy(res.data.accuracy);
+        setAccuracy(res.data);
       })
       .catch((err) => {
         console.log("Error on setting dataset" + err);
@@ -55,13 +70,17 @@ function DataSetter() {
         </RadioGroup>
       </FormControl>
 
-      {accuracy && (
-        <Typography variant="h6" style={{
-            marginBottom: "10px"
-          }}>
-          Accuracy of dataset is: {accuracy.toFixed(2)}
+      {Object.entries(accuracy).map((item, index) => (
+        <Typography
+          variant="h6"
+          style={{
+            marginBottom: "10px",
+          }}
+          key={index}
+        >
+          {item[0]}: {item[1].toFixed(2)}
         </Typography>
-      )}
+      ))}
     </>
   );
 }
